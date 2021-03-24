@@ -63,4 +63,4 @@ stages:
                 connectTo: 'VsTeam'
                 connectedServiceName: 'vsts-marketplace'
                 fileType: 'vsix'
-                vsixFile: 'duchessa-pipelines4s*.vsix'
+                vsixFile: 'duchessa.pipelines4s*.vsix'
