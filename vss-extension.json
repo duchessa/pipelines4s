@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "pipelines4s",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "name": "Pipelines4s Extension",
   "publisher": "duchessa",
   "description": "Tasks and utilities for compilation, testing, and deployment of Scala and/or Java based projects.",
