@@ -1,0 +1,17 @@
+{
+  "name": "pipelines4s",
+  "description": "Tasks and utilities for compilation, testing, and deployment of Scala and/or Java based projects.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duchessa/pipelines4s"
+  },
+  "scripts": {
+    "clean": "node clean.js",
+    "prepare": "npm --prefix=tasks/setup-sbt install && npm --prefix=tasks/setup-graalvm install",
+    "build-tasks": "npm --prefix=tasks/setup-sbt run build && npm --prefix=tasks/setup-graalvm run build",
+    "build": "npm install && npm run build-tasks && node_modules/.bin/tfx extension create --manifest-globs vss-extension.json"
+  },
+  "devDependencies": {
+    "tfx-cli": "^0.9.0"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "manifestVersion": 1,
+  "id": "pipelines4s",
+  "version": "0.3.3",
+  "name": "Pipelines4s Extension",
+  "publisher": "duchessa",
+  "description": "Tasks and utilities for compilation, testing, and deployment of Scala and/or Java based projects.",
+  "galleryFlags": [
+    "Public",
+    "Preview"
+  ],
+  "tags": [
+    "scala",
+    "sbt",
+    "java",
+    "jdk",
+    "graalvm"
+  ],
+  "categories": [
+    "Azure Pipelines"
+  ],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/duchessa/pipelines4s"
+  },
+  "links": {
+    "getstarted": {
+      "uri": "https://github.com/duchessa/pipelines4s"
+    },
+    "support": {
+      "uri": "https://github.com/duchessa/pipelines4s/issues"
+    },
+    "license": {
+      "uri": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "icons": {
+    "default": "images/pipelines4s-logo.png"
+  },
+  "screenshots": [
+    {
+      "path": "images/graalvm-setup-screenshot.png"
+    },
+    {
+      "path": "images/sbt-setup-screenshot.png"
+    }
+  ],
+  "content": {
+    "details": {
+      "path": "README.md"
+    },
+    "license": {
+      "path": "LICENSE"
+    }
+  },
+  "files": [
+    {
+      "path": "tasks/setup-sbt"
+    },
+    {
+      "path": "tasks/setup-graalvm"
+    },
+    {
+      "path": "images",
+      "addressable": true
+    }
+  ],
+  "contributions": [
+    {
+      "id": "setup-sbt",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "tasks/setup-sbt"
+      }
+    },
+    {
+      "id": "setup-graalvm",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "tasks/setup-graalvm"
+      }
+    }
+  ]
+}
