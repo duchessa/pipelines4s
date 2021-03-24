@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/tsc"
+    "build": "npm install && node_modules/.bin/tsc && npm prune --production"
   },
   "author": "Duchessa Team",
   "license": "Apache-2.0",

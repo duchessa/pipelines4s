@@ -58,7 +58,7 @@ stages:
               inputs:
                 version: 'v0.9.x'
             - task: PublishAzureDevOpsExtension@3
-              condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')))
+              condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')), not(contains(variables['GitVersion.SemVer'], '+')))
               inputs:
                 connectTo: 'VsTeam'
                 connectedServiceName: 'vsts-marketplace'
