@@ -25,16 +25,29 @@ stages:
       - job:
         steps:
           - task: gitversion/setup@0
+            displayName: Setup GitVersion
             inputs:
               versionSpec: 5.x
           - task: gitversion/execute@0
+            displayName: Execute GitVersion
           - task: NodeTool@0
+            displayName: Setup Node.js
             inputs:
               versionSpec: 14.x
           - task: Npm@1
+            displayName: Build Extension Tasks
             inputs:
               command: custom
-              customCommand: run build
+              customCommand: run build-tasks
+          - task: TfxInstaller@3
+            displayName: Setup tfx-cli Tool
+            inputs:
+              version: 'v0.9.x'
+          - task: PackageAzureDevOpsExtension@3
+            displayName: Package DevOps Extension
+            inputs:
+              extensionVersion: $(GitVersion.SemVer)
+              updateTasksVersion: false
 
   - ${{ if startsWith(variables[ 'Build.SourceBranch' ], 'refs/tags/v') }}:
     - stage: Publish_Tagged_Extension
@@ -44,23 +57,35 @@ stages:
         - job:
           steps:
             - task: gitversion/setup@0
+              displayName: Setup GitVersion
               inputs:
                 versionSpec: '5.x'
             - task: gitversion/execute@0
+              displayName: Execute GitVersion
             - task: NodeTool@0
+              displayName: Setup Node.js
               inputs:
                 versionSpec: '14.x'
             - task: Npm@1
+              displayName: Build Extension Tasks
               inputs:
                 command: 'custom'
-                customCommand: 'run build'
+                customCommand: 'run build-tasks'
             - task: TfxInstaller@3
+              displayName: Setup tfx-cli Tool
               inputs:
                 version: 'v0.9.x'
+            - task: PackageAzureDevOpsExtension@3
+              displayName: Package DevOps Extension
+              inputs:
+                extensionVersion: $(GitVersion.SemVer)
+                updateTasksVersion: false
             - task: PublishAzureDevOpsExtension@3
+              displayName: Publish Extension
               condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')), not(contains(variables['GitVersion.SemVer'], '+')))
               inputs:
                 connectTo: 'VsTeam'
                 connectedServiceName: 'vsts-marketplace'
+                extensionVersion: $(GitVersion.SemVer)
                 fileType: 'vsix'
                 vsixFile: 'duchessa.pipelines4s*.vsix'

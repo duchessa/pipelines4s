@@ -3,14 +3,14 @@
   "id": "d423f795-60f4-4c52-8b15-943232a1abf2",
   "name": "setup-graalvm",
   "friendlyName": "Setup GraalVM",
-  "description": "Fetches and installs specified version of GraalVM, for use in subsequent steps.",
-  "helpMarkDown": "Fetches and installs [GraalVM CE](https://github.com/oracle/graal), and makes it available for use in subsequent steps.",
+  "description": "Checks agent tool cache for specified GraalVM CE version and makes it available for use in subsequent steps, otherwise also attempts to fetch and install it to tool cache.",
+  "helpMarkDown": "Checks agent tool cache for specified [GraalVM CE](https://github.com/oracle/graal) and makes it available for use in subsequent steps, otherwise also attempts to fetch and install it to tool cache.",
   "category": "Azure Pipelines",
   "author": "Duchessa Team",
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 3
+    "Patch": 4
   },
   "instanceNameFormat": "Use GraalVM $(graalVersion) for Java $(javaVersion)",
   "groups": [

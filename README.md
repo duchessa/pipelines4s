@@ -1,19 +1,19 @@
 # pipelines4s
 
-Azure DevOps Pipelines extension providing assorted tasks and utilities for compilation, testing, and deployment of
-Scala and/or Java based projects.
+Azure DevOps Pipelines extension providing assorted tasks for compilation, testing, and deployment of Scala and/or Java based projects.
 
 ## Usage
 
-Install this extension to targeted Azure DevOps Organisation from Azure DevOps
-[Extensions Marketplace](https://marketplace.visualstudio.com/items?itemName=duchessa.pipelines4s). to make tasks
-provided by this extension available for use in organisation projects. Refer to task availability and configuration
-reference below.
+Install this extension to your Azure DevOps Organisation from Azure DevOps [Extensions Marketplace](https://marketplace.visualstudio.com/items?itemName=duchessa.pipelines4s)
+to make tasks provided by this extension available for use in organisation projects. Refer to task availability and configuration reference below.
 
 ## Included Tasks
 
 - ### setup-graalvm (Version: 1.x)
-  Task to download, cache, configure and add to PATH a GraalVM Community Edition distribution.
+  Task to search the local agent tool cache for a specified [GraalVM](https://graalvm.org) Community Edition distribution
+  version; and prepend its binaries to the system PATH for use in subsequent build steps. If a cached installation matching
+  the specified `graalVersion`  and targeted `javaVersion` settings is not found, then an attempt will be made to download
+  and install it to the agent local tool cache.
 
   | Argument                | Description                                                                                                                                                                                                                   |
   | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -34,7 +34,10 @@ reference below.
   ```
 
 - ### setup-sbt (Version: 1.x)
-  Task to download, cache, and add to PATH an [sbt](https://www.scala-sbt.org/) launcher installation.
+  Task to search the local agent tool cache for a specified [sbt](https://www.scala-sbt.org/) launcher installation;
+  and prepend its binaries to the system PATH for use in subsequent build steps. If a cached installation matching the
+  specified `sbtVersion` setting is not found, then an attempt will be made to download and install it to the agent local
+  tool cache.
 
   | Argument     | Description                                                                                            |
   | :----------- | :----------------------------------------------------------------------------------------------------- |
