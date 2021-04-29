@@ -1,24 +1,9 @@
 version: 2
-
 updates:
-
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: daily
-    allow:
-      - dependency-type: all
-
-  - package-ecosystem: npm
-    directory: tasks/setup-sbt
-    schedule:
-      interval: daily
-    allow:
-      - dependency-type: all
-
-  - package-ecosystem: npm
-    directory: tasks/setup-graalvm
-    schedule:
-      interval: daily
-    allow:
-      - dependency-type: all
+- package-ecosystem: npm
+  directory: /
+  schedule:
+    interval: daily
+  allow:
+    - dependency-type: all
+  versioning-strategy: increase

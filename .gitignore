@@ -3,7 +3,6 @@ node_modules/
 .taskkey
 *.vsix
 *.iml
+dist/
 
-# Do not commit compiled js
-tasks/*/*.js
 

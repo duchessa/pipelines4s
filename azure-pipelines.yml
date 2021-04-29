@@ -35,10 +35,14 @@ stages:
             inputs:
               versionSpec: 14.x
           - task: Npm@1
-            displayName: Build Extension Tasks
+            displayName: Install NPM Dependencies
+            inputs:
+              command: install
+          - task: Npm@1
+            displayName: Build DevOps Extension
             inputs:
               command: custom
-              customCommand: run build-tasks
+              customCommand: 'run build:bundle'
           - task: TfxInstaller@3
             displayName: Setup tfx-cli Tool
             inputs:
@@ -48,6 +52,7 @@ stages:
             inputs:
               extensionVersion: $(GitVersion.SemVer)
               updateTasksVersion: false
+              rootFolder: 'dist'
 
   - ${{ if startsWith(variables[ 'Build.SourceBranch' ], 'refs/tags/v') }}:
     - stage: Publish_Tagged_Extension
@@ -67,10 +72,14 @@ stages:
               inputs:
                 versionSpec: '14.x'
             - task: Npm@1
-              displayName: Build Extension Tasks
+              displayName: Install NPM Dependencies
+              inputs:
+                command: 'install'
+            - task: Npm@1
+              displayName: Build DevOps Extension
               inputs:
                 command: 'custom'
-                customCommand: 'run build-tasks'
+                customCommand: 'run build:bundle'
             - task: TfxInstaller@3
               displayName: Setup tfx-cli Tool
               inputs:
@@ -80,12 +89,12 @@ stages:
               inputs:
                 extensionVersion: $(GitVersion.SemVer)
                 updateTasksVersion: false
+                rootFolder: 'dist'
             - task: PublishAzureDevOpsExtension@3
-              displayName: Publish Extension
+              displayName: Publish DevOps Extension
               condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')), not(contains(variables['GitVersion.SemVer'], '+')))
               inputs:
                 connectTo: 'VsTeam'
                 connectedServiceName: 'vsts-marketplace'
-                extensionVersion: $(GitVersion.SemVer)
                 fileType: 'vsix'
                 vsixFile: 'duchessa.pipelines4s*.vsix'
