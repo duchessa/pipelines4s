@@ -10,7 +10,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 4
+    "Patch": 5
   },
   "instanceNameFormat": "Use GraalVM $(graalVersion) for Java $(javaVersion)",
   "groups": [
@@ -65,7 +65,7 @@
   ],
   "execution": {
     "Node10": {
-      "target": "index.js"
+      "target": "bundle.js"
     }
   }
 }
