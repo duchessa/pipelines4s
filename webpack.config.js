@@ -1,35 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
-// function resolveConfiguration(mode) {
-//     return {
-//         entry: {
-//             coursier: path.resolve(__dirname, "src", "coursier.ts")
-//         },
-//         target: 'node',
-//         mode: mode,
-//         module: {
-//             rules: [{
-//                 test: /\.tsx?$/,
-//                 use: 'ts-loader',
-//                 exclude: /node_modules/,
-//             }],
-//         },
-//         resolve: {
-//             extensions: ['.tsx', '.ts', '.js', '.json'],
-//         },
-//         output: {
-//             libraryTarget: 'commonjs2',
-//             filename: 'bundle.js',
-//             path: path.resolve(__dirname, "dist", "tasks", "[name]")
-//         },
-//         node: {
-//             __dirname: false,
-//             __filename: false
-//         }
-//     }
-// }
 
 module.exports = (env) => {
     return {
