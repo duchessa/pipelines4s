@@ -11,7 +11,7 @@
     "build": "npm install && npm run build:bundle && node_modules/.bin/tfx extension create --manifest dist/vss-extension.json --root dist"
   },
   "devDependencies": {
-    "@types/node": "^14.14.43",
+    "@types/node": "^15.0.2",
     "@types/q": "^1.5.4",
     "@types/semver": "^5.5.0",
     "copy-webpack-plugin": "^8.1.1",
