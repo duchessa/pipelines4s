@@ -1,6 +1,12 @@
 # pipelines4s
 
-Azure DevOps Pipelines extension providing assorted tasks for compilation, testing, and deployment of Scala and/or Java based projects.
+Azure DevOps Pipelines extension providing assorted tasks for compilation, testing, and deployment of Scala and/or Java based projects. Implemented
+in Scala.js.
+
+[![Build Status](https://dev.azure.com/duchessa/pipelines4s/_apis/build/status/duchessa.pipelines4s?branchName=main)](https://dev.azure.com/duchessa/pipelines4s/_build?definitionId=5)
+[![Current Release](https://img.shields.io/github/v/tag/duchessa/pipelines4s?color=blue&label=Current%20Release)](https://github.com/duchessa/pipelines4s/tags)
+[![Azure Pipelines Task](https://img.shields.io/badge/Extension%20Marketplace-Pipelines4s-blue?logo=azure-pipelines)](https://marketplace.visualstudio.com/items?itemName=duchessa.pipelines4s)
+
 
 ## Usage
 
