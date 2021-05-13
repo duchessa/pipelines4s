@@ -1,8 +1,10 @@
-node_modules/
 .idea/
+.metals/
+.vscode/
+.bloop/
+.bsp/
+target/
+dist/
 .taskkey
 *.vsix
 *.iml
-dist/
-
-

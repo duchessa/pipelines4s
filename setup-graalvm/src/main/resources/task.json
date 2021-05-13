@@ -9,8 +9,8 @@
   "author": "Duchessa Team",
   "version": {
     "Major": 1,
-    "Minor": 0,
-    "Patch": 5
+    "Minor": 1,
+    "Patch": 0
   },
   "instanceNameFormat": "Use GraalVM $(graalVersion) for Java $(javaVersion)",
   "groups": [
@@ -56,16 +56,20 @@
       "groupName": "components"
     },
     {
-      "name": "prefixNodeExecutables",
+      "name": "prefixExecutables",
+      "aliases": [
+        "prefixNodeExecutables",
+        "prefixAmbiguousExecutables"
+      ],
       "type": "boolean",
-      "label": "Prefix Node Executables",
+      "label": "Prefix Ambiguous Executables",
       "defaultValue": true,
-      "helpMarkDown": "Defines whether GraalVM provided `npm`, `npx`, and `node` commands should be prepended with `graalvm-` to allow concurrent usage with existing NodeJS installation. Default is 'true'."
+      "helpMarkDown": "Defines whether GraalVM provided `lli`, `npm`, `npx`, and `node` commands should be prepended with `graalvm-` to allow concurrent usage with existing LLVM and NodeJS installations. Default is 'true'."
     }
   ],
   "execution": {
     "Node10": {
-      "target": "bundle.js"
+      "target": "setup-graalvm-fastopt-bundle.js"
     }
   }
 }

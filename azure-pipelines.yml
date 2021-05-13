@@ -34,15 +34,11 @@ stages:
             displayName: Setup Node.js
             inputs:
               versionSpec: 14.x
-          - task: Npm@1
-            displayName: Install NPM Dependencies
+          - task: Bash@3
+            displayName: Compile Extension Assembly
             inputs:
-              command: install
-          - task: Npm@1
-            displayName: Build DevOps Extension
-            inputs:
-              command: custom
-              customCommand: 'run build:bundle'
+              script: 'sbt -J-Xmx4G -J-Xms2G package'
+              targetType: 'inline'
           - task: TfxInstaller@3
             displayName: Setup tfx-cli Tool
             inputs:
@@ -52,49 +48,45 @@ stages:
             inputs:
               extensionVersion: $(GitVersion.SemVer)
               updateTasksVersion: false
-              rootFolder: 'dist'
+              rootFolder: 'target/vsix'
 
   - ${{ if startsWith(variables[ 'Build.SourceBranch' ], 'refs/tags/v') }}:
-    - stage: Publish_Tagged_Extension
-      displayName: Publish Tagged Extension
-      dependsOn: Integration_Build
-      jobs:
-        - job:
-          steps:
-            - task: gitversion/setup@0
-              displayName: Setup GitVersion
-              inputs:
-                versionSpec: '5.x'
-            - task: gitversion/execute@0
-              displayName: Execute GitVersion
-            - task: NodeTool@0
-              displayName: Setup Node.js
-              inputs:
-                versionSpec: '14.x'
-            - task: Npm@1
-              displayName: Install NPM Dependencies
-              inputs:
-                command: 'install'
-            - task: Npm@1
-              displayName: Build DevOps Extension
-              inputs:
-                command: 'custom'
-                customCommand: 'run build:bundle'
-            - task: TfxInstaller@3
-              displayName: Setup tfx-cli Tool
-              inputs:
-                version: 'v0.9.x'
-            - task: PackageAzureDevOpsExtension@3
-              displayName: Package DevOps Extension
-              inputs:
-                extensionVersion: $(GitVersion.SemVer)
-                updateTasksVersion: false
-                rootFolder: 'dist'
-            - task: PublishAzureDevOpsExtension@3
-              displayName: Publish DevOps Extension
-              condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')), not(contains(variables['GitVersion.SemVer'], '+')))
-              inputs:
-                connectTo: 'VsTeam'
-                connectedServiceName: 'vsts-marketplace'
-                fileType: 'vsix'
-                vsixFile: 'duchessa.pipelines4s*.vsix'
+      - stage: Publish_Tagged_Extension
+        displayName: Publish Tagged Extension
+        dependsOn: Integration_Build
+        jobs:
+          - job:
+            steps:
+              - task: gitversion/setup@0
+                displayName: Setup GitVersion
+                inputs:
+                  versionSpec: '5.x'
+              - task: gitversion/execute@0
+                displayName: Execute GitVersion
+              - task: NodeTool@0
+                displayName: Setup Node.js
+                inputs:
+                  versionSpec: '14.x'
+              - task: Bash@3
+                displayName: Compile Extension Assembly
+                inputs:
+                  script: 'sbt -J-Xmx4G -J-Xms2G package'
+                  targetType: 'inline'
+              - task: TfxInstaller@3
+                displayName: Setup tfx-cli Tool
+                inputs:
+                  version: 'v0.9.x'
+              - task: PackageAzureDevOpsExtension@3
+                displayName: Package DevOps Extension
+                inputs:
+                  extensionVersion: $(GitVersion.SemVer)
+                  updateTasksVersion: false
+                  rootFolder: 'target/vsix'
+              - task: PublishAzureDevOpsExtension@3
+                displayName: Publish DevOps Extension
+                condition: and(succeeded(), not(contains(variables['GitVersion.SemVer'], '-')), not(contains(variables['GitVersion.SemVer'], '+')))
+                inputs:
+                  connectTo: 'VsTeam'
+                  connectedServiceName: 'vsts-marketplace'
+                  fileType: 'vsix'
+                  vsixFile: 'duchessa.pipelines4s*.vsix'

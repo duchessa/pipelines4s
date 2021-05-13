@@ -9,8 +9,8 @@
   "author": "Duchessa Team",
   "version": {
     "Major": 1,
-    "Minor": 0,
-    "Patch": 5
+    "Minor": 1,
+    "Patch": 0
   },
   "instanceNameFormat": "Use sbt $(sbtVersion)",
   "inputs": [
@@ -25,7 +25,7 @@
   ],
   "execution": {
     "Node10": {
-      "target": "bundle.js"
+      "target": "setup-sbt-fastopt-bundle.js"
     }
   }
 }
