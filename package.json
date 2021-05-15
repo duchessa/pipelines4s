@@ -1,0 +1,29 @@
+{
+  "name": "pipelines4s",
+  "description": "Azure DevOps Pipelines extension providing assorted tasks for compilation, testing, and deployment of Scala and/or Java based projects",
+  "scripts": {
+    "build": "exit 0",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duchessa/pipelines4s.git"
+  },
+  "author": "Duchessa Project",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/duchessa/pipelines4s/issues"
+  },
+  "homepage": "https://github.com/duchessa/pipelines4s#readme",
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "@types/q": "^1.5.4",
+    "@types/shelljs": "^0.8.8",
+    "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "@octokit/rest": "^18.5.3",
+    "azure-pipelines-task-lib": "^3.1.2",
+    "azure-pipelines-tool-lib": "^1.0.2"
+  }
+}

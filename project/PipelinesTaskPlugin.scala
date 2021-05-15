@@ -8,6 +8,7 @@ import sbt._
 import sbt.Keys._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+import NpmDependenciesPlugin.autoImport.fromPackageJson
 
 import java.nio.charset.Charset
 
@@ -26,9 +27,7 @@ object PipelinesTaskPlugin extends AutoPlugin {
     Seq(
       scalaVersion := (LocalRootProject / scalaVersion).value,
       version := (LocalRootProject / version).value,
-      scalaJSLinkerConfig ~= {
-        _.withModuleKind(ModuleKind.CommonJSModule)
-      },
+      scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)),
       webpackBundlingMode := BundlingMode.Application,
       webpackConfigFile := Some((LocalRootProject / baseDirectory).value / "custom.webpack.config.js"),
       stUseScalaJsDom := false,
@@ -40,7 +39,7 @@ object PipelinesTaskPlugin extends AutoPlugin {
         val bundled = (Compile / fastOptJS / webpack).value
         val staticResources = (Compile / unmanagedResources).value
 
-        def processResources() = {
+        def processResources(): Unit = {
 
           case class LocLib(messages: Map[String, String])
 
@@ -48,7 +47,6 @@ object PipelinesTaskPlugin extends AutoPlugin {
             taskLibLoc <- circe.parser.decode[LocLib](IO.read(nodeModules / "azure-pipelines-task-lib" / "lib.json"))
             toolLibLoc <- circe.parser.decode[LocLib](IO.read(nodeModules / "azure-pipelines-tool-lib" / "lib.json"))
           } yield IO.write(targetDir / "lib.json", LocLib(taskLibLoc.messages ++ toolLibLoc.messages).asJson.spaces2, Charset.defaultCharset(), append = false)
-
 
           staticResources.foreach(f => if (f.isFile) IO.copyFile(f, targetDir / f.name))
         }
@@ -75,18 +73,16 @@ object PipelinesTaskPlugin extends AutoPlugin {
 
 
       },
-      Compile / npmDependencies ++= Seq(
-        "azure-pipelines-task-lib" -> "3.1.0",
-        "azure-pipelines-tool-lib" -> "1.0.1"
-      ),
-      Compile / npmDevDependencies ++= Seq(
-        "@types/node" -> "14.14.34",
-        "@types/q" -> "1.5.4",
-        "@types/shelljs" -> "0.8.8",
-        "@types/mockery" -> "1.4.29",
-        "webpack-merge" -> "4.2.2",
-        "string-replace-loader" -> "3.0.1"
-      )
+      Compile / npmDependencies ++= fromPackageJson(Seq(
+        "azure-pipelines-task-lib",
+        "azure-pipelines-tool-lib"
+      )).value,
+      Compile / npmDevDependencies ++= fromPackageJson(Seq(
+        "@types/node",
+        "@types/q",
+        "@types/shelljs",
+        "webpack-merge"
+      )).value
     )
   }
 
