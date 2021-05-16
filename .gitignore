@@ -5,6 +5,7 @@
 .bsp/
 target/
 dist/
+node_modules/
 .taskkey
 *.vsix
 *.iml
