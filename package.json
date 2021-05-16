@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/duchessa/pipelines4s#readme",
   "devDependencies": {
-    "@types/node": "^14.14.45",
+    "@types/node": "^15.3.0",
     "@types/q": "^1.5.4",
     "@types/shelljs": "^0.8.8",
     "webpack-merge": "^4.2.2"
