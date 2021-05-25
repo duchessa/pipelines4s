@@ -73,16 +73,16 @@ object PipelinesTaskPlugin extends AutoPlugin {
 
 
       },
-      Compile / npmDependencies ++= fromPackageJson(Seq(
+      Compile / npmDependencies ++= fromPackageJson(
         "azure-pipelines-task-lib",
         "azure-pipelines-tool-lib"
-      )).value,
-      Compile / npmDevDependencies ++= fromPackageJson(Seq(
+      ).value,
+      Compile / npmDevDependencies ++= fromPackageJson(
         "@types/node",
         "@types/q",
         "@types/shelljs",
         "webpack-merge"
-      )).value
+      ).value
     )
   }
 

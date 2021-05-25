@@ -1,13 +1,28 @@
 name := "pipelines4s"
 version := "0.4.0-SNAPSHOT"
-scalaVersion := "2.13.5"
+ThisBuild / scalaVersion := "2.13.5"
 ThisBuild / crossPaths := false
 enablePlugins(ScalaJSPlugin)
-aggregateProjects(`setup-graalvm`, `setup-sbt`)
+aggregateProjects(common, `setup-graalvm`, `setup-sbt`)
+
+lazy val common =
+  project
+    .enablePlugins(ScalaJSBundlerPlugin, ScalablyTypedConverterPlugin)
+    .settings(
+      webpackConfigFile := Some((LocalRootProject / baseDirectory).value / "custom.webpack.config.js"),
+      scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)),
+      Compile / npmDependencies ++= fromPackageJson("@types/node").value,
+
+    )
+
 
 lazy val `setup-graalvm` =
   project
+    .dependsOn(common)
     .enablePlugins(PipelinesTaskPlugin)
+    .settings(
+      Compile / npmDependencies ++= fromPackageJson("typed-rest-client").value
+    )
 
 lazy val `setup-sbt` =
   project
