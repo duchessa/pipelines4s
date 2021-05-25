@@ -25,9 +25,14 @@ to make tasks provided by this extension available for use in organisation proje
   | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | `graalVersion`          | String defining version number of [GraalVM Community Edition](https://github.com/graalvm/graalvm-ce-builds/releases) to be installed.                                                                                         |
   | `javaVersion`           | Defining major version number of targeted [Java Platform](https://www.oracle.com/java/technologies/java-se-glance.html) specification. Limited to Java versions supported by the [GraalVM Project](https://www.graalvm.org/). |
-  | `prefixNodeExecutables` | Boolean defining whether GraalVM provided `npm`, `npx`, and `node` commands should be prepended with `graalvm-` to allow concurrent usage with existing NodeJS installation. Default is 'true'.                               |
   | `nativeImage`           | Boolean defining whether the GraalVM [Native Image](https://www.graalvm.org/reference-manual/native-image/) component is installed. Default is 'true'.                                                                        |
   | `llvmToolchain`         | Boolean defining whether the GraalVM [LLVM toolchain](https://www.graalvm.org/reference-manual/llvm/) component is installed. Default is 'false'.                                                                             |
+  | `espresso`              | Boolean defining whether the GraalVM [Truffle Framework](https://www.graalvm.org/reference-manual/java-on-truffle/) component is installed. Default is 'false'.                                                               |
+  | `nodejs`                | Boolean defining whether the GraalVM [Node.js](https://www.graalvm.org/reference-manual/js/#running-nodejs) component is installed. Default is 'false'.                                                                       |
+  | `python`                | Boolean defining whether the GraalVM [Python](https://www.graalvm.org/reference-manual/python/) component is installed. Default is 'false'.                                                                                   |
+  | `ruby`                  | Boolean defining whether the GraalVM [Ruby](https://www.graalvm.org/reference-manual/ruby/) component is installed. Default is 'false'.                                                                                       |
+  | `r`                     | Boolean defining whether the GraalVM [R](https://www.graalvm.org/reference-manual/r/) component is installed. Default is 'false'.                                                                                             |
+  | `wasm`                  | Boolean defining whether the GraalVM [WebAssembly](https://www.graalvm.org/reference-manual/wasm/) component is installed. Default is 'false'.                                                                                |
 
   #### Usage example:
   ```yaml
