@@ -9,3 +9,4 @@ node_modules/
 .taskkey
 *.vsix
 *.iml
+package-lock.json

@@ -29,7 +29,7 @@ object NpmDependenciesPlugin extends AutoPlugin {
   object autoImport {
     val parsedNpmDependencies = settingKey[Map[String, String]]("")
 
-    def fromPackageJson(dependencies: Seq[String]): Def.Initialize[Seq[(String, String)]] = Def.setting {
+    def fromPackageJson(dependencies: String*): Def.Initialize[Seq[(String, String)]] = Def.setting {
       val parsed = parsedNpmDependencies.value
       dependencies.map(dep => dep -> parsed(dep))
     }
