@@ -1,5 +1,5 @@
 name := "pipelines4s"
-version := "0.5.0"
+version := "0.5.1-SNAPSHOT"
 ThisBuild / scalaVersion := "2.13.5"
 ThisBuild / crossPaths := false
 enablePlugins(ScalaJSPlugin)
