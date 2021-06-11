@@ -5,14 +5,14 @@ ThisBuild / crossPaths := false
 enablePlugins(ScalaJSPlugin)
 aggregateProjects(common, `setup-graalvm`, `setup-sbt`)
 
+Global / stQuiet := true
+
 lazy val common =
   project
     .enablePlugins(ScalaJSBundlerPlugin, ScalablyTypedConverterPlugin)
+    .settings(sharedSettings)
     .settings(
-      webpackConfigFile := Some((LocalRootProject / baseDirectory).value / "custom.webpack.config.js"),
-      scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)),
       Compile / npmDependencies ++= fromPackageJson("@types/node").value,
-
     )
 
 
@@ -20,6 +20,7 @@ lazy val `setup-graalvm` =
   project
     .dependsOn(common)
     .enablePlugins(PipelinesTaskPlugin)
+    .settings(sharedSettings)
     .settings(
       Compile / npmDependencies ++= fromPackageJson("typed-rest-client").value
     )
@@ -27,6 +28,7 @@ lazy val `setup-graalvm` =
 lazy val `setup-sbt` =
   project
     .enablePlugins(PipelinesTaskPlugin)
+    .settings(sharedSettings)
 
 Keys.`package` := {
   val rootDir = (LocalRootProject / baseDirectory).value
@@ -54,3 +56,16 @@ Keys.`package` := {
   }
   targetDir
 }
+
+def sharedSettings = Seq(
+  scalaVersion := (LocalRootProject / scalaVersion).value,
+  version := (LocalRootProject / version).value,
+  crossPaths := (LocalRootProject / crossPaths).value,
+  scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)),
+  webpackBundlingMode := BundlingMode.Application,
+  webpackConfigFile := Some((LocalRootProject / baseDirectory).value / "custom.webpack.config.js"),
+  stFlavour := org.scalablytyped.converter.Flavour.Normal,
+  stTypescriptVersion := fromPackageJson("typescript").value.head._2,
+  stEnableLongApplyMethod := true,
+  stEnableScalaJsDefined := Selection.All
+)
